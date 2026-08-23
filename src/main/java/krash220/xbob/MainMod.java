@@ -92,7 +92,9 @@ public class MainMod {
 //                this.matrix.translate(0.0, Player.getItemShake(partialTicks) * 0.01f, 0.0);
 //            }
 
-            float dist = Render.getCenterDepth();//Math.max(Render.getCenterDepth(), Render.getReachDistance());
+            // 固定参考距离：准星偏移仅由相机 bob 决定，不随瞄准距离变化，
+            // 避免贴墙/近处物体时平移分量被小距离急剧放大（导致准星大量偏移并影响瞄准）
+            float dist = 100.0f;
             float[] pos = this.matrix.multiplyVector(0f, 0f, -dist, 1f);
             float[] rot = this.matrix.multiplyVector(0f, 1f, -dist, 1f);
 
