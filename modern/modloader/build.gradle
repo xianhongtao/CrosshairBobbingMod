@@ -1,0 +1,29 @@
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = targetCompatibility = '21'
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:33.2.1-jre'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+
+    implementation 'net.fabricmc:fabric-loader:0.19.3'
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+}
+
+processResources {
+    rename 'mixin.json', "mixin.${mod.id}.modloader.json" // Fabric
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'    : "${mod.name}",
+            'Specification-Vendor'   : "${mod.author}",
+            'Implementation-Title'   : 'Forge & Fabric Mixin One Modloader',
+            'MixinConfigs'           : "mixin.${mod.id}.json"
+        ])
+    }
+}

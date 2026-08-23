@@ -1,0 +1,60 @@
+// 应用于 fabric* 子项目（loom）
+// 26.x 为非混淆版本（net.fabricmc.fabric-loom，无 remap，mod 依赖用 implementation）
+// 1.20.4-1.21.11 为混淆版本（net.fabricmc.fabric-loom-remap，mod 依赖用 modImplementation）
+
+if (project.mc_version.startsWith("26.")) {
+    apply plugin: 'net.fabricmc.fabric-loom'
+
+    repositories {
+        maven {
+            name = 'Modrinth'
+            url = 'https://api.modrinth.com/maven'
+        }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${project.mc_version}"
+        implementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric}"
+
+        if (project.hasProperty('modmenu')) {
+            implementation "maven.modrinth:modmenu:${project.modmenu}"
+        }
+
+        if (project.hasProperty('cameraoverhaul')) {
+            implementation "maven.modrinth:cameraoverhaul:${project.cameraoverhaul}"
+            // cameraoverhaul 的硬依赖：Cloth Config API
+            implementation "maven.modrinth:cloth-config:${project.cloth_config}"
+        }
+
+        // 非混淆 26.x：loom 1.17 生成的 merged jar 不含类（bug），显式使用官方 client jar 作为编译类路径。
+        // 服务端专属类缺失，但本 mod 为纯客户端模组，不影响。
+        implementation files("${System.getProperty('user.home')}/.gradle/caches/fabric-loom/${project.mc_version}/minecraft-client.jar")
+    }
+} else {
+    apply plugin: 'net.fabricmc.fabric-loom-remap'
+
+    repositories {
+        maven {
+            name = 'Modrinth'
+            url = 'https://api.modrinth.com/maven'
+        }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${project.mc_version}"
+        mappings "net.fabricmc:yarn:${project.mc_version}+build.${project.yarn_build}:v2"
+        modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric}"
+
+        if (project.hasProperty('modmenu')) {
+            modImplementation "maven.modrinth:modmenu:${project.modmenu}"
+        }
+
+        if (project.hasProperty('cameraoverhaul')) {
+            modImplementation "maven.modrinth:cameraoverhaul:${project.cameraoverhaul}"
+            // cameraoverhaul 的硬依赖：Cloth Config API
+            modImplementation "maven.modrinth:cloth-config:${project.cloth_config}"
+        }
+    }
+}

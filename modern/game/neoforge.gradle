@@ -1,0 +1,66 @@
+// 应用于 neoforge* 子项目（ModDevGradle）
+// NeoForge 26.x 为独立 mod jar（每版本一个完整 mod），不依赖 modloader 定位。
+
+apply plugin: 'net.neoforged.moddev'
+
+// NFRT 依赖解析：neoforge maven 对部分较新 pom 返回空文件，需 Maven Central 优先兜底
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+    }
+}
+
+neoForge {
+    version = project.neo_version
+
+    mods {
+        "${mod.id}" {
+            sourceSet sourceSets.main
+        }
+    }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+    }
+}
+
+// 共享仓库根的 MainMod 源码与语言资源（与 legacy/fabric 构建共用一份）
+sourceSets.main.java.srcDirs += rootProject.file('../src/main/java')
+sourceSets.main.resources.srcDirs += rootProject.file('../src/main/resources')
+
+dependencies {
+    if (project.hasProperty('cameraoverhaul')) {
+        implementation "maven.modrinth:cameraoverhaul:${project.cameraoverhaul}"
+        // cameraoverhaul 的硬依赖：Cloth Config API
+        implementation "maven.modrinth:cloth-config:${project.cloth_config}"
+    }
+}
+
+// NeoForge 26.x 不再混淆，mixin 直接引用官方类名，无需 refmap。
+// mixin 仅编译期需要：NeoForge 运行时自带新版 mixin，若放上运行 classpath，
+// 老 0.8.5 的 ServiceLoader 服务会尝试加载 LaunchClassLoader 导致启动崩溃。
+dependencies {
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+}
+
+// 本机只有 JDK 25。NFRT 默认要 Java 21 启动器，全部覆盖为项目 toolchain（Java 25），
+// 不再等待 foojay 下载 JDK 21。
+def nfrtJava = javaToolchains.launcherFor {
+    languageVersion = java.toolchain.languageVersion
+}.map { it.getExecutablePath().getAsFile().getAbsolutePath() }
+
+tasks.named('downloadAssets').configure { task ->
+    task.getJavaExecutable().set(nfrtJava)
+}
+
+tasks.named('createMinecraftArtifacts').configure { task ->
+    task.getJavaExecutable().set(nfrtJava)
+    task.getToolsJavaExecutable().set(nfrtJava)
+}

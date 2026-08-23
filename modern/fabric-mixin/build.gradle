@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':modloader')
+
+    implementation 'org.spongepowered:mixin:0.8.5'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+}
+
+processResources {
+    rename 'mixin.json', "mixin.${mod.id}.json"
+}

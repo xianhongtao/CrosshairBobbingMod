@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'net.fabricmc.fabric-loom' version '1.17.19' apply false
+    id 'net.fabricmc.fabric-loom-remap' version '1.17.19' apply false
+    id 'net.neoforged.moddev' version '2.0.144' apply false
+}
+
+allprojects {
+    apply plugin: 'java-library'
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        // toolchain 是 JDK 25，但字节码必须停在 21：老版本 MC 自带的 ASM 只认到 class 版本 67，
+        // 遇到 69 会在 mod 扫描和 mixin PREPARE 阶段抛 Unsupported class file major version 69。
+        options.release = 21
+    }
+}
+
+apply plugin: 'ffm1.modern'
