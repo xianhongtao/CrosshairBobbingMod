@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="${MOD_LICENSE}"
+issueTrackerURL="${MOD_URL}"
+
+[[mods]]
+modId="${MOD_ID}"
+version="${MOD_VERSION}"
+displayName="${MOD_NAME}"
+authors="${MOD_AUTHOR}"
+description='''${MOD_NAME}'''
+displayURL="${MOD_URL}"
+
+[[mixins]]
+    config = "xbob.mixins.json"
+
+[[dependencies.${MOD_ID}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.1.2,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.${MOD_ID}]]
+    modId="cameraoverhaul"
+    type="required"
+    versionRange="[2.1.1,)"
+    ordering="AFTER"
+    side="CLIENT"

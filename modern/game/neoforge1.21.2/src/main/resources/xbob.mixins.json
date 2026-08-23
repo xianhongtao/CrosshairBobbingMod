@@ -1,0 +1,19 @@
+{
+    "required": true,
+    "package": "${MOD_PACKAGE}.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "CameraOverhaulMixin",
+        "GameRendererAccessor",
+        "GameRendererMixin",
+        "GuiMixin",
+        "LivingEntityAccessor",
+        "LocalPlayerMixin",
+        "MultiPlayerGameModeMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "minVersion": "0.8"
+}
