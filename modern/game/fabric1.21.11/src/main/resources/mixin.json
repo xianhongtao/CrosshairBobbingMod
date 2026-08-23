@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "${MOD_PACKAGE}.mixin",
+    "mixins": [
+        "CameraOverhaulMixin",
+        "ClientPlayerInteractionManagerMixin",
+        "GameRendererAccessor",
+        "GameRendererMixin",
+        "InGameHudMixin",
+        "LivingEntityAccessor"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
