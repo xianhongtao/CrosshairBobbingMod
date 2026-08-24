@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 
 public class Logger {
 
-    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger("${MOD_ID}");
+  private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger("${MOD_ID}");
 
-    public static void info(String log, Object... args) {
-        LOGGER.info(log, args);
-    }
+  public static void info(String log, Object... args) {
+    LOGGER.info(log, args);
+  }
 }

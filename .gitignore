@@ -1,11 +1,11 @@
 # Gradle
-/gradle/wrapper/gradle-wrapper.jar
+**/gradle/wrapper/gradle-wrapper.jar
 **/.gradle
 **/build
 **/run
-/dists
-/gradlew
-/gradlew.bat
+**/dists
+**/gradlew
+**/gradlew.bat
 
 # Eclipse
 **/.classpath

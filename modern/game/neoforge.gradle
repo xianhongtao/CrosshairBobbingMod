@@ -32,8 +32,8 @@ neoForge {
 }
 
 // 共享仓库根的 MainMod 源码与语言资源（与 legacy/fabric 构建共用一份）
-sourceSets.main.java.srcDirs += rootProject.file('../src/main/java')
-sourceSets.main.resources.srcDirs += rootProject.file('../src/main/resources')
+sourceSets.main.java.srcDirs += rootProject.file('src/main/java')
+sourceSets.main.resources.srcDirs += rootProject.file('src/main/resources')
 
 dependencies {
     if (project.hasProperty('cameraoverhaul')) {

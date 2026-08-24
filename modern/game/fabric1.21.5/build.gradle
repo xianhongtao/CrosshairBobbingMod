@@ -1,5 +1,5 @@
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
-// 共享仓库根的 MainMod 源码与语言资源（dev 运行时自足）
-sourceSets.main.java.srcDirs += rootProject.file('../src/main/java')
-sourceSets.main.resources.srcDirs += rootProject.file('../src/main/resources')
+// MainMod 源码与语言资源位于 modern 本地（dev 运行时自足）
+sourceSets.main.java.srcDirs += rootProject.file('src/main/java')
+sourceSets.main.resources.srcDirs += rootProject.file('src/main/resources')

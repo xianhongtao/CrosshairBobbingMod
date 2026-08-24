@@ -14,9 +14,9 @@ dependencies {
     modbaseImplementation 'net.fabricmc:fabric-loader:0.19.3'
 }
 
-// MainMod 源码与语言资源来自仓库根（与 legacy 构建共享）
-sourceSets.main.java.srcDirs = ['../src/main/java']
-sourceSets.main.resources.srcDirs = ['../src/main/resources']
+// MainMod 源码与语言资源位于 modern 本地（不再引用仓库根的 legacy src）
+sourceSets.main.java.srcDirs = ['src/main/java']
+sourceSets.main.resources.srcDirs = ['src/main/resources']
 
 jar {
     from sourceSets.modbase.output

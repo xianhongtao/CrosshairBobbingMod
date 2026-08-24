@@ -1,4 +1,5 @@
 plugins {
+    id 'com.diffplug.spotless' version '8.10.0'
     id 'java-library'
     id 'net.fabricmc.fabric-loom' version '1.17.19' apply false
     id 'net.fabricmc.fabric-loom-remap' version '1.17.19' apply false
@@ -17,3 +18,20 @@ allprojects {
 }
 
 apply plugin: 'ffm1.modern'
+
+// 全仓库统一格式化：Java 用 google-java-format（1.36.0 支持 JDK 25）。
+subprojects {
+    apply plugin: 'com.diffplug.spotless'
+    spotless {
+        java {
+            target 'src/**/*.java'
+            googleJavaFormat('1.36.0')
+            // 与 .editorconfig 一致：4 空格缩进、去除多余空白、保留末尾换行
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
+        // 不格式化 JSON：项目里的 json 全部是 Groovy 模板资源（fabric.mod.json、mixin.json 等），
+        // 含 ${...} 与 \u0024 转义占位符。jackson 重新序列化会把 \u0024 解码成 $，导致 processResources
+        // 展开时报 Missing property，故交由手工维护。
+    }
+}

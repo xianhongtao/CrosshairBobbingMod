@@ -50,7 +50,7 @@ dependencyResolutionManagement {
 rootProject.name = 'xbob-modern'
 
 include 'modloader', 'main', 'fabric-mixin', 'game:api'
-project(':game:api').projectDir = file('../game/api')
+project(':game:api').projectDir = file('game/api')
 
 def game = new File(settingsDir, 'game')
 
