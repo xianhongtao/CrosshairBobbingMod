@@ -8,7 +8,7 @@ This project targets the modern Minecraft versions (1.20.4+), split into two loa
 lines inside the `modern/` Gradle workspace:
 
 | Loader | Versions |
-|---|---|
+| --- | --- |
 | **Fabric** | 1.20.4, 1.20.5, 1.20.6, 1.21, 1.21.1 – 1.21.11, 26.2 |
 | **NeoForge** | 1.20.6, 1.21, 1.21.1 – 1.21.11, 26.1.2 |
 
