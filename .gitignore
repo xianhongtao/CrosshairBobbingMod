@@ -14,5 +14,12 @@
 **/bin
 !**/src/**/bin
 
-# ?
-**/.*
+# Dotfiles: ignore transient/IDE ones but keep mandatory repo files tracked
+**/.idea
+**/.vscode
+**/.DS_Store
+# GitHub Actions workflows + editor/attributes config MUST be committed
+!.github/
+!.github/**
+!.editorconfig
+!.gitattributes
